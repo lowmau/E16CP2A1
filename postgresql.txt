@@ -1,0 +1,47 @@
+CREATE DATABASE printagram;
+
+	
+			CREATE TABLE users(
+					id serial PRIMARY KEY, 
+					name VARCHAR (10)
+			);
+
+			INSERT INTO users VALUES(1, 'Laura'), (2, 'Lowtjie');
+
+			CREATE TABLE images(
+					id INTEGER PRIMARY KEY, 
+					user_id INTEGER,
+					name VARCHAR (50), 
+					CONSTRAINT fk_img FOREIGN KEY (user_id) REFERENCES users (id)
+			);
+
+			CREATE TABLE likes(
+					user_id INTEGER REFERENCES users (id),
+					img_id INTEGER REFERENCES images (id),
+					date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+					PRIMARY KEY (user_id, img_id)
+			);
+
+			CREATE TABLE tags(
+					img_id INTEGER REFERENCES images (id),
+					name VARCHAR (20) NOT NULL,
+					PRIMARY KEY (img_id, name)
+			);
+
+
+Antes de empezar a crear la base de datos deben leer todas las instrucciones, modelar la base y generar un diagrama que tendrán que adjuntar a las respuestas de este ejecrcicio.
+Ingresar 2 imágenes por usuario.
+			INSERT INTO images VALUES(1, 1, 'img1'), (2, 1, 'img2'), (3, 2, 'img3'), (4, 2, 'img4');
+
+Ingresar 3 likes por cada imagen.
+      INSERT INTO likes VALUES(1, 1, 'img1'), (2, 1, 'img2'), (3, 2, 'img3'), (4, 2, 'img4');
+
+Ingresar 8 tags.
+			INSERT INTO likes ('name') VALUES('tag1'), ('tag2'), ('tag3'), ('tag4');
+
+Ingresar 3 tags por imagen.
+			INSERT INTO likes VALUES(1, 'tag1'), (2, 'tag2'), (3, 'tag3'), (4, 'tag4');
+
+Crear una consulta que muestre el nombre de la imagen y la cantidad de likes que tiene esa imagen.
+Crear una consulta que muestre el nombre del usuario y los nombres de las fotos que le pertenecen.
+Crear una consulta que muestre el nombre del tag y la cantidad de imagenes asociadas a ese tag.
